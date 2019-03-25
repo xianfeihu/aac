@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: aac-wallet
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 3
+      min-idle: 1
+      max-active: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM mysql
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+  http:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 20MB
+
+server:
+  context-path: /wallet
+  port: 8080
+
+logging:
+  config: classpath:log4j2.xml
+
+api:
+  base-package: com.yz.aac.wallet.controller
+
+security:
+  # 外部接口请求头
+  externalUriPatterns: /external/**
+  # 不需要携带token的API
+  unregulatedUriPatterns:
+    # 例如完整地址是 http://<server>:<ip>/wallet/my/test，去掉前缀和上下文路径，就是/my/test
+    - /account/SMSLogin
+    - /account/getMobileCode
+    - /getSysErrorCodeList
+    - /sms/sendCode
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    
+file-storage:
+  enabled: true
+  security-key: 8UFch9b90izxkr31
+  
+job:
+  corePoolSize: 10
+    
+ 
+#身份证实名认证信息   
+idcard:
+  query-url: http://op.juhe.cn/idcard/query 
+  apikey: 5b2b8d10b53ff6f89cf1660708c5cba7
+  
+#网易云信配置信息
+yunxin:
+  apikey: d3cf59f590c38bfea0f27f89e1291312
+  secret: 92e7edcef7b3
+  send-code-url: https://api.netease.im/sms/sendcode.action
+  verfycode-url: https://api.netease.im/sms/verifycode.action

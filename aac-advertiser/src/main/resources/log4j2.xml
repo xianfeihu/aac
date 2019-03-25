@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <properties>
+        <property name="LOG_DIR">./logs</property>
+        <property name="CONSOLE_LOG_PATTERN">%style{%d{yyyy-MM-dd.HH:mm:ss.SSS}}{Green} %style{%X{IP}}{Magenta}%highlight{%p}{STYLE=Logback} %style{%t@%X{_KRY_GLOBAL_MSG_ID}}{Red} %style{%X{URL}%c.%M(%L)}{Cyan} :| %m%n</property>
+        <property name="FILE_LOG_PATTERN">[%d{yyyy-MM-dd.HH:mm:ss.SSS}|%X{IP}|%p|%t@%X{_KRY_GLOBAL_MSG_ID}|%X{URL}%c.%M(%L):|%m%n</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${CONSOLE_LOG_PATTERN}"/>
+        </Console>
+
+        <RollingRandomAccessFile name="RollingFile" fileName="${LOG_DIR}/aacAdvertiser.log" filePattern="${LOG_DIR}/aacAdvertiser.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="ErrorRollingFile" fileName="${LOG_DIR}/aacAdvertiser-error.log" filePattern="${LOG_DIR}/aacAdvertiser-error.%d{yyyy-MM-dd}.log">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${FILE_LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <logger name="com.yz.aac.advertiser.repository" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <Root level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="ErrorRollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: aac-exchange
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      initial-size: 3
+      min-idle: 1
+      max-active: 10
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM mysql
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+  http:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 20MB
+
+server:
+  context-path: /exchange
+  port: 8082
+
+logging:
+  config: classpath:log4j2.xml
+
+api:
+  base-package: com.yz.aac.exchange.controller
+
+job:
+  corePoolSize: 10
+  
+
+file-storage:
+  enabled: true
+  security-key: 8UFch9b90izxkr31
+
+security:
+  # 外部接口请求头
+  externalUriPatterns: /external/**
+  # 不需要携带token的API
+  unregulatedUriPatterns:
+  # 例如完整地址是 http://<server>:<ip>/wallet/my/test，去掉前缀和上下文路径，就是/my/test
+  - /mall/kChartPath
+  - /mall/getIndexInfo
+  - /mall/mallTradInfo
+  - /mall/searchIndexInfo
+  - /mall/candlestickChartMsg
+  - /mall/currencyIntroduction
+  - /mall/candlestickChartBaseMsg
+  - /mall/candlestickChartMsgForNow
+  - /getCurrencyList
+  - /getCurrencyTradingList
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

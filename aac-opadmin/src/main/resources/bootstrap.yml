@@ -1,0 +1,51 @@
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://118.24.58.147:3306/aac?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: aac
+    password: w98R3vYEfiCi
+security:
+  token-security-key: EwbIyAhUQEL4
+api:
+  enable-document: true
+file-storage:
+  host: 118.24.58.147
+  port: 22122
+  http-port: 18003
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://132.232.205.107:3306/aac?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: aac
+    password: ONuoXD0YwJ6p
+security:
+  token-security-key: vkJcY9CeAIBy
+api:
+  enable-document: true
+file-storage:
+  host: 132.232.205.107
+  port: 22122
+  http-port: 18003
+
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://store.aac.com:18306/aac?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: aacservice
+    password: CvwrdO2bazkB
+security:
+  token-security-key: MPaquRJCQTI9
+api:
+  enable-document: false
+file-storage:
+  host: store.aaccloud.com
+  port: 22122
+  http-port: 18003
