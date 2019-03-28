@@ -28,7 +28,7 @@ import static com.yz.aac.common.Constants.Token.TOKEN_CLAIM_LOGIN_ID;
 import static com.yz.aac.common.Constants.Token.TTL_MILLIS;
 import static com.yz.aac.common.model.response.RootResponse.buildSuccess;
 
-@Api(tags = "APP端-用户登录，验证流程")
+@Api(tags = "APP端-用户登录，验证流程vvvv")
 @RequestMapping("/account")
 @RestController
 public class AccountController extends BaseController {
